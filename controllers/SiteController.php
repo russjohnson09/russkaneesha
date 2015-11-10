@@ -7,8 +7,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\LogForm;
 use app\models\GuestLoginForm;
+use app\models\Guest;
 use app\models\ContactForm;
 
 class SiteController extends Controller
@@ -51,11 +51,23 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $guest = new GuestLoginForm();
-        if ($guest->load(Yii::$app->request->post()) && $guest->login()) {
-            return $this->render('index');
+        $guest = null;
+        $guestForm = new GuestLoginForm();
+        $cookies = Yii::$app->request->cookies;
+        $guest_id = $cookies->getValue('guest_id');
+        if (isset($guest_id)) {
+            $guest = Guest::find()->where(array('id' => $guest_id))->one();
         }
-        return $this->render('index',array('guest' => $guest));
+        if (!isset($guest)) {
+            if ($guestForm->load(Yii::$app->request->post())) {
+                $guest = $guestForm->login();
+                Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'guest_id',
+                    'value' => $guest->id]));
+            }
+        }
+
+        return $this->render('index',array('guest' => $guest,'guestForm' => $guestForm));
     }
 
     public function actionLogin()

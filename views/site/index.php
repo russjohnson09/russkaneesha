@@ -8,17 +8,14 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Russ And Kaneesha';
 
-$user = Yii::$app->User;
-$app = Yii::$app;
-
 
 ?>
 <div class="site-index">
 
     <div class="body-content">
-    <?php if(isset($guest)):?>
+    <?php  if(!isset($guest)) {?>
         <?php $form = ActiveForm::begin([
-            'id' => 'log-form',
+            'id' => 'guest-login-form',
             'options' => ['class' => 'form-horizontal'],
             'fieldConfig' => [
                 'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
@@ -26,9 +23,9 @@ $app = Yii::$app;
             ],
         ]); ?>
 
-        <?= $form->field($guest, 'first_name') ?>
+        <?php $form->field($guestForm, 'first_name') ?>
 
-        <?= $form->field($guest, 'last_name') ?>
+        <?php $form->field($guestForm, 'last_name') ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
@@ -37,29 +34,8 @@ $app = Yii::$app;
         </div>
 
         <?php ActiveForm::end(); ?>
-        <?php endif;?>
+        <?php } ?>
     <div class="body-content">
-
-        <?php $form = ActiveForm::begin([
-            'id' => 'guest-login-form',
-            'options' => ['class' => 'form-horizontal'],
-            'fieldConfig' => [
-                //'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                'labelOptions' => ['class' => 'col-lg-1 control-label'],
-            ],
-        ]); ?>
-
-        <?php $form->field($guest, 'first_name') ?>
-
-        <?php $form->field($guest, 'last_name') ?>
-
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?php Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
-        </div>
-
-        <?php ActiveForm::end(); ?>
 
         <div class="row">
             <div class="col-lg-4">
