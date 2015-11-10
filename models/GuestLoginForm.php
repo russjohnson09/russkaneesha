@@ -12,14 +12,28 @@ class GuestLoginForm extends Model
 {
     public $first_name;
     public $last_name;
+    public $phone;
+    public $email;
 
     private $_guest = false;
 
+    /*
+    public function fields()
+    {
+        $fields = parent::fields();
+        $fields['phone'] = 'phone';
+        return $fields;
+    }
+    */
 
     public function rules()
     {
         return [
-            [['first_name', 'last_name'], 'required'],
+            [['first_name', 'last_name'//,'email'
+            ], 'required'],
+            array(array('phone'),'safe'),
+            ['email', 'email'],
+            //['phone','phone'],
         ];
     }
 

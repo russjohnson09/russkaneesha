@@ -62,6 +62,8 @@ class SiteController extends Controller
             if ($guestForm->load(Yii::$app->request->post())) {
                 $guest->first_name = $guestForm->first_name;
                 $guest->last_name = $guestForm->last_name;
+                $guest->phone = $guestForm->phone;
+                $guest->email = $guestForm->email;
                 $guest->save();
             }
 
@@ -79,6 +81,8 @@ class SiteController extends Controller
         if (isset($guest)) {
             $guestForm->first_name = $guest->first_name;
             $guestForm->last_name = $guest->last_name;
+            $guestForm->phone = $guest->phone;
+            $guestForm->email = $guest->email;
         }
 
         return $this->render('index',array('guest' => $guest,'guestForm' => $guestForm));
