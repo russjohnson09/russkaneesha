@@ -13,6 +13,7 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    /*
     public function behaviors()
     {
         return [
@@ -35,6 +36,7 @@ class SiteController extends Controller
             ],
         ];
     }
+    */
 
     public function actions()
     {
@@ -70,6 +72,7 @@ class SiteController extends Controller
                 Yii::$app->response->cookies->add(new \yii\web\Cookie([
                 'name' => 'guest_id',
                     'value' => $guest->id]));
+                $this->redirect('/');
             }
         }
 
@@ -81,6 +84,7 @@ class SiteController extends Controller
         return $this->render('index',array('guest' => $guest,'guestForm' => $guestForm));
     }
 
+    /*
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -95,12 +99,13 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    */
+
 
     public function actionLogout()
     {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
+        Yii::$app->response->cookies->remove('guest_id');
+        return $this->redirect('/');
     }
 
     public function actionContact()

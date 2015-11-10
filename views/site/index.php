@@ -8,9 +8,6 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Russ And Kaneesha';
 
-$user = Yii::$app->User;
-$app = Yii::$app;
-
 
 ?>
 <div class="site-index">
