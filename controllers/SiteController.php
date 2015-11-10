@@ -57,6 +57,12 @@ class SiteController extends Controller
         $guest_id = $cookies->getValue('guest_id');
         if (isset($guest_id)) {
             $guest = Guest::find()->where(array('id' => $guest_id))->one();
+            if ($guestForm->load(Yii::$app->request->post())) {
+                $guest->first_name = $guestForm->first_name;
+                $guest->last_name = $guestForm->last_name;
+                $guest->save();
+            }
+
         }
         if (!isset($guest)) {
             if ($guestForm->load(Yii::$app->request->post())) {
@@ -65,6 +71,11 @@ class SiteController extends Controller
                 'name' => 'guest_id',
                     'value' => $guest->id]));
             }
+        }
+
+        if (isset($guest)) {
+            $guestForm->first_name = $guest->first_name;
+            $guestForm->last_name = $guest->last_name;
         }
 
         return $this->render('index',array('guest' => $guest,'guestForm' => $guestForm));

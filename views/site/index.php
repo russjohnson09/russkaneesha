@@ -15,27 +15,26 @@ $app = Yii::$app;
 ?>
 <div class="site-index">
 
-        <?php if(!isset($guest)):?>
-            <?php $form = ActiveForm::begin([
-                'id' => 'log-form',
-                'options' => ['class' => 'form-horizontal'],
-                'fieldConfig' => [
-                    'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                    'labelOptions' => ['class' => 'col-lg-1 control-label'],
-                ],
-            ]); ?>
+        <?php $form = ActiveForm::begin([
+            'id' => 'log-form',
+            'options' => ['class' => 'form-horizontal'],
+            'fieldConfig' => [
+                'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            ],
+        ]); ?>
 
-            <?= $form->field($guestForm, 'first_name') ?>
 
-            <?= $form->field($guestForm, 'last_name') ?>
+        <?= $form->field($guestForm, 'first_name') ?>
 
-            <div class="form-group">
-                <div class="col-lg-offset-1 col-lg-11">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
+        <?= $form->field($guestForm, 'last_name') ?>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+                <?= Html::submitButton(isset($guest) ? 'Save' : 'Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
+        </div>
 
-            <?php ActiveForm::end(); ?>
-        <?php endif;?>
+        <?php ActiveForm::end(); ?>
 
 </div>
