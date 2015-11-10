@@ -1,4 +1,5 @@
 <?php
+use Yii;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -6,11 +7,16 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 
 $this->title = 'Russ And Kaneesha';
+
+$user = Yii::$app->User;
+$app = Yii::$app;
+
+
 ?>
 <div class="site-index">
 
     <div class="body-content">
-
+    <?php if(isset($guest)):?>
         <?php $form = ActiveForm::begin([
             'id' => 'log-form',
             'options' => ['class' => 'form-horizontal'],
@@ -20,9 +26,9 @@ $this->title = 'Russ And Kaneesha';
             ],
         ]); ?>
 
-        <?= $form->field($log, 'first_name') ?>
+        <?= $form->field($guest, 'first_name') ?>
 
-        <?= $form->field($log, 'last_name') ?>
+        <?= $form->field($guest, 'last_name') ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
@@ -31,7 +37,7 @@ $this->title = 'Russ And Kaneesha';
         </div>
 
         <?php ActiveForm::end(); ?>
-
+        <?php endif;?>
     <div class="body-content">
 
         <?php $form = ActiveForm::begin([

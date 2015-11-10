@@ -51,12 +51,11 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $logForm = new LogForm();
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        $guest = new GuestLoginForm();
+        if ($guest->load(Yii::$app->request->post()) && $guest->login()) {
+            return $this->render('index');
         }
-        return $this->render('index',array('model' => $model,'guest' => $guest,'log' => $logForm));
+        return $this->render('index',array('guest' => $guest));
     }
 
     public function actionLogin()
