@@ -1,4 +1,7 @@
 <?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+
 
 /* @var $this yii\web\View */
 
@@ -6,15 +9,51 @@ $this->title = 'Russ And Kaneesha';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <div class="body-content">
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <?php $form = ActiveForm::begin([
+            'id' => 'log-form',
+            'options' => ['class' => 'form-horizontal'],
+            'fieldConfig' => [
+                'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            ],
+        ]); ?>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+        <?= $form->field($log, 'first_name') ?>
+
+        <?= $form->field($log, 'last_name') ?>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            </div>
+        </div>
+
+        <?php ActiveForm::end(); ?>
 
     <div class="body-content">
+
+        <?php $form = ActiveForm::begin([
+            'id' => 'guest-login-form',
+            'options' => ['class' => 'form-horizontal'],
+            'fieldConfig' => [
+                //'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+                'labelOptions' => ['class' => 'col-lg-1 control-label'],
+            ],
+        ]); ?>
+
+        <?php $form->field($guest, 'first_name') ?>
+
+        <?php $form->field($guest, 'last_name') ?>
+
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-11">
+                <?php Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            </div>
+        </div>
+
+        <?php ActiveForm::end(); ?>
 
         <div class="row">
             <div class="col-lg-4">

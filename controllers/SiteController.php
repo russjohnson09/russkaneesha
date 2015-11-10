@@ -7,6 +7,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\LogForm;
+use app\models\GuestLoginForm;
 use app\models\ContactForm;
 
 class SiteController extends Controller
@@ -49,7 +51,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $logForm = new LogForm();
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+        return $this->render('index',array('model' => $model,'guest' => $guest,'log' => $logForm));
     }
 
     public function actionLogin()
